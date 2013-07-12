@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Services</title>
+</head>
+
+<body bgcolor="grey">
+<pre> <h1><font color="#7656">  <u>Call Center Services</u> </font></h1>
+</pre>
+
+         <pre><h3><b>                       You have come to the right place for all types of call center services
+                       for your hardware problems, including specialty and customized 
+                       services that can go far beyond the typical call center and answering
+                       service. 
+<a><img src="C:\Users\SHAMIK\CallCenterManagement1\1.jpg" height="160"width="200" align="left"></a>
+              Call center services (also spelled call centre services)include
+              everything from answering the phone and taking products recall
+              replacements. Virtually any business process you do by phone
+              can be outsourced to us. 
+              Your business will benefit by minimizing staffing and
+              office costs. You can use our services to extend your reach into new
+              markets and provide customer services to help service and retain your
+              existing customers. We have services for all phases of the sales
+              process from marketing to inside sales to customer development.
+                                              <font color=" light red"> Contact us now for a consultation.</font></b></h3></pre>
+
+
+
+</body>
+</html>

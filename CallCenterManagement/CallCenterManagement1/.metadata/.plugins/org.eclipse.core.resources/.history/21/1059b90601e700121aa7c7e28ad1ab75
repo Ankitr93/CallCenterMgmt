@@ -1,0 +1,34 @@
+package com.callcentermanagement.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.callcentermanagement.bean.KeywordBean;
+import com.callcentermanagement.connection.DbConFactory;
+
+public class KeywordDao {
+Connection con=DbConFactory.getCon();
+PreparedStatement keypst=null;
+public int insertKeyword(KeywordBean keyobj){
+	String keyins="insert into keyword(keyword,key_description,date_of_entry) values(?,?,?)";
+	try {
+		keypst=con.prepareStatement(keyins);
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	int rows = 0;
+	try {
+		keypst.setString(1,keyobj.getKeyword());
+		keypst.setString(2,keyobj.getKeyDescription());
+		keypst.setString(3,keyobj.getKeyDateOfEntry());
+        rows=keypst.executeUpdate();
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}  
+	return rows;
+	
+}
+}

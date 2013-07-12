@@ -1,0 +1,51 @@
+package com.callcentermanagement.controller;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.callcentermanagement.connection.DbConFactory;
+import com.callcentermanagement.dao.KeywordDao;
+import com.callcentermanagement.bean.KeywordBean;
+
+/**
+ * Servlet implementation class SearchKeyword
+ */
+@WebServlet("/SearchKeyword")
+public class SearchKeyword extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	Connection con=DbConFactory.getCon();
+	KeywordDao keydao=new KeywordDao();
+	
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SearchKeyword() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		String key=request.getParameter("keyword");
+		ArrayList<KeywordBean> alkey=null;
+		alkey=keydao.searchKeyword(key);
+		request.setAttribute("alkey",alkey);
+		RequestDispatcher rd= request.getRequestDispatcher("searchkey.jsp");
+		rd.forward(request, response);
+		
+	}
+
+}

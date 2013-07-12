@@ -1,0 +1,32 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="grey"><pre><H1><font color="crimson"> C-CARE </font></H1></pre>
+<pre><h3><u><a href="#">Home</a></b>|<a href="services.jsp"><b>Solution&Services</a></b>|<a href="feedback.jsp"><b>feedback</a></b>|<a href="contactus.jsp"><b>Contact us</b></a></u></h3>
+
+                                                            <a><img alt="c-care" src="D:\images2.jpg" height="200"width="200"></a><br>
+                                                            <a><img src="D:\images3.jpg" align="left"></a>
+<font size="3" color="white">
+A customer center, also known as customer
+interaction center is a central point of
+any organization from which all customer
+contacts are managed. Through contact 
+center,valuable information about company
+are routed to appropriate people,contacts
+to be tracked and data to be gathered.</font>
+</pre>
+    
+<pre>     <form method="post" action="LoginController">                                                
+                                              UserID:<input type="text" name="user"/><br/>
+                                              Password:<input type="password" name="password"/><input type="submit" value="Login"></input></form>
+                                             
+</pre>
+
+
+</body>
+</html>

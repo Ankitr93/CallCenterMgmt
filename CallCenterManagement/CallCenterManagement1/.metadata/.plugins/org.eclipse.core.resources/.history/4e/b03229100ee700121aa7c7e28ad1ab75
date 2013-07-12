@@ -1,0 +1,106 @@
+package com.callcentermanagement.controller;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.callcentermanagement.connection.DbConFactory;
+
+/**
+ * Servlet implementation class QueryController
+ */
+@WebServlet("/QueryController")
+public class QueryController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	PreparedStatement qrypst=null;
+	Connection con=DbConFactory.getCon();
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QueryController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }String qrysel= "select * from keyword where keyDes=?";
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		try{
+			con.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		try{
+			qrypst = con.prepareStatement(qrysel);
+		String qrysrch= request.getParameter("search");
+		qrypst.setString(1,qrysrch);
+		
+		ResultSet qryrs= qrypst.executeQuery();
+		
+		 int ctr=0;
+			while(qryrs.next()){
+				
+				ctr++;
+			}
+			if(ctr==1){
+				request.setAttribute("N",qrysrch);
+				
+				RequestDispatcher rd= request.getRequestDispatcher("display.jsp");
+				rd.forward(request, response);
+		
+			}	
+			else if(qrysrch.equals("")){
+				RequestDispatcher rd= request.getRequestDispatcher("newquery.jsp");
+				rd.forward(request, response);	
+					
+				}
+			else{
+					RequestDispatcher rd= request.getRequestDispatcher("query1.jsp");
+				rd.forward(request, response);	
+				
+			}
+	}catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+
+
+	}
+
+

@@ -1,0 +1,130 @@
+package com.callcentermanagement.dao;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.callcentermanagement.bean.EmployeeBean;
+import com.callcentermanagement.connection.DbConFactory;
+
+/**
+ * Servlet implementation class EmployeeDao
+ */
+@WebServlet("/EmployeeDao")
+public class EmployeeDao extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	PreparedStatement emppst=null;
+	EmployeeBean empobj=null;
+    Connection con=DbConFactory.getCon();   
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public EmployeeDao() {
+        super();
+        // TODO Auto-generated constructor stub
+    }String empins="insert into employee_details(password,emp_name,date_of_birth,emp_sex,email_id,emp_address,emp_designation,emp_salary,date_of_join,emp_mobile) values(?,?,?,?,?,?,?,?,?,?)";
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		try {
+			con.close();
+			} catch (SQLException e) {
+			//TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		try {
+			emppst=con.prepareStatement(empins);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int rows=0;
+		empobj.setEmpPassword(request.getParameter("password"));
+		empobj.setEmpName(request.getParameter("emp_name"));
+		empobj.setEmpDateOfBirth(request.getParameter("date_of_birth"));
+		empobj.setEmpSex(request.getParameter("emp_sex"));
+		empobj.setEmailId(request.getParameter("email_id"));
+		empobj.setEmpAddress(request.getParameter("emp_address"));
+		empobj.setEmpDesignation(request.getParameter("emp_designation"));
+		try{
+			empobj.setEmpSalary(Float.parseFloat(request.getParameter("emp_salary")));
+		}catch(NumberFormatException n)
+		{
+			n.printStackTrace();
+		}
+		empobj.setEmpDateOfJoin(request.getParameter("date_of_join"));
+		try{
+			empobj.setEmpMobileNo(Long.parseLong(request.getParameter("emp_mobile")));
+		}catch(NumberFormatException e){
+			e.printStackTrace();
+		}
+		  try {
+				emppst.setString(1,empobj.getEmpPassword());
+				emppst.setString(2,empobj.getEmpName());
+				emppst.setString(3,empobj.getEmpDateOfBirth());
+				emppst.setString(4,empobj.getEmpSex());
+				emppst.setString(5,empobj.getEmailId());
+				emppst.setString(6,empobj.getEmpAddress());
+				emppst.setString(7,empobj.getEmpDesignation());
+				emppst.setFloat(8,empobj.getEmpSalary());
+				emppst.setString(8,empobj.getEmpDateOfJoin());
+				emppst.setLong(8,empobj.getEmpMobileNo());
+                rows=emppst.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+    
+           if(rows!=0)
+    		{
+    			out.println("<h2>"+"One record inserted.."+"</h2>");
+    			out.println("<a href='emp.jsp'>"+" Details  "+"</a>");
+    		}
+    		else
+    		{
+    			out.println("<h2>"+"insertion failed.. please try again.."+"</h2>");
+           	
+    			
+    		}
+    		out.println("</body></html>");
+    		out.close();
+    	}
+
+
+	}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.callcentermanagement.bean.CustomerBean"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.dao.CustomerDao"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.bean.KeywordBean"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.bean.EnquiryBean"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.dao.KeywordDao"/>
+<fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.connection.DbConFactory"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.bean.EmployeeBean"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.dao.EmployeeDao"/>
+<fullyQualifiedTypeName name="com.callcentermanagement.dao.QueryDao"/>
+</qualifiedTypeNameHistroy>

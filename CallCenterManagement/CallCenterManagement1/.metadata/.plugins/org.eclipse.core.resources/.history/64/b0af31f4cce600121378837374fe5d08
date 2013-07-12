@@ -1,0 +1,123 @@
+package com.callcentermanagement.dao;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.callcentermanagement.bean.EnquiryBean;
+import com.callcentermanagement.connection.DbConFactory;
+
+/**
+ * Servlet implementation class QueryDao
+ */
+@WebServlet("/QueryDao")
+public class QueryDao extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	PreparedStatement enqpst=null;
+	EnquiryBean enqobj=new EnquiryBean();
+    Connection con=DbConFactory.getCon();
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QueryDao() {
+        super();
+        // TODO Auto-generated constructor stub
+    }String keyins="insert into enquiry_details(emp_id,customer_id,query,query_solution,query_status,date_of_query) values(?,?,?,?,?,?)";
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		// TODO Auto-generated method stub
+		try {
+			enqpst=con.prepareStatement(keyins);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		try {
+			con.close();
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		int rows=0;
+		try{
+			enqobj.setEmpId(Integer.parseInt(request.getParameter("emp_id"))); 
+		}catch(NumberFormatException a){
+			a.printStackTrace();
+		}
+		enqobj.setQuery(request.getParameter("query"));
+		try{
+			enqobj.setCustomerId(Integer.parseInt(request.getParameter("customer_id")));
+		}catch(NumberFormatException n){
+			n.printStackTrace();
+		}
+		enqobj.setQuerySolution(request.getParameter("query_solution"));
+		enqobj.setQueryStatus(request.getParameter("query_status"));
+		enqobj.setDateOfQuery(request.getParameter("date_of_query"));
+		
+	    try {
+			enqpst.setInt(1,enqobj.getEmpId());
+			enqpst.setInt(2,enqobj.getCustomerId());
+			enqpst.setString(3,enqobj.getQuery());
+			enqpst.setString(4,enqobj.getQuerySolution());
+			enqpst.setString(5,enqobj.getQueryStatus());
+			enqpst.setString(6,enqobj.getDateOfQuery());
+            rows=enqpst.executeUpdate();
+ 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+  
+
+if(rows!=0)
+{
+out.println("<h2>"+"One record inserted.."+"</h2>");
+out.println("<a href='keydetails.jsp'>"+" Details  "+"</a>");
+}
+else
+{
+out.println("<h2>"+"insertion failed.. please try again.."+"</h2>");
+
+
+}
+out.println("</body></html>");
+out.close();
+	}
+}
+
+
